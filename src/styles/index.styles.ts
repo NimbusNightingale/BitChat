@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import { BottomTabInset, MaxContentWidth, Spacing } from "@/constants/theme";
 
 export const styles = StyleSheet.create({
   screen: {
@@ -13,15 +13,15 @@ export const styles = StyleSheet.create({
     flexGrow: 1,
     paddingHorizontal: Spacing.four,
     paddingBottom: BottomTabInset + Spacing.five,
-    alignSelf: 'center',
-    width: '100%',
+    alignSelf: "center",
+    width: "100%",
     maxWidth: MaxContentWidth,
     gap: Spacing.four,
   },
   topBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingTop: Spacing.five,
   },
   storiesCard: {
@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: Spacing.two,
   },
   storyItem: {
-    alignItems: 'center',
+    alignItems: "center",
     gap: Spacing.one,
   },
   storyRing: {
@@ -41,20 +41,20 @@ export const styles = StyleSheet.create({
     height: 68,
     borderRadius: 34,
     borderWidth: 2,
-    borderColor: '#111111',
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderColor: "#111111",
+    alignItems: "center",
+    justifyContent: "center",
   },
   storyAvatar: {
     width: 58,
     height: 58,
     borderRadius: 29,
-    backgroundColor: '#111111',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#111111",
+    alignItems: "center",
+    justifyContent: "center",
   },
   storyInitial: {
-    color: '#ffffff',
+    color: "#ffffff",
   },
   feed: {
     gap: Spacing.four,
@@ -65,28 +65,28 @@ export const styles = StyleSheet.create({
     gap: Spacing.three,
   },
   postHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   postUser: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: Spacing.two,
   },
   postAvatar: {
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: '#111111',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#111111",
+    alignItems: "center",
+    justifyContent: "center",
   },
   postImage: {
     borderRadius: 24,
     minHeight: 320,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   postImageText: {
     fontSize: 44,
@@ -96,7 +96,7 @@ export const styles = StyleSheet.create({
     gap: Spacing.one,
   },
   actionRow: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: Spacing.two,
   },
   composer: {
@@ -107,22 +107,25 @@ export const styles = StyleSheet.create({
   composerTop: {
     gap: Spacing.one,
   },
-  inputMock: {
+  input: {
     borderRadius: 24,
+    borderWidth: 1,
+    borderColor: "rgba(0,0,0,0.08)",
     paddingHorizontal: Spacing.four,
     paddingVertical: Spacing.three,
     minHeight: 64,
-    justifyContent: 'center',
+    textAlignVertical: "top",
+    width: "100%",
   },
   postButton: {
     borderRadius: 999,
     paddingHorizontal: Spacing.four,
     paddingVertical: Spacing.two,
-    backgroundColor: '#111111',
-    alignSelf: 'flex-start',
+    backgroundColor: "#111111",
+    alignSelf: "flex-start",
   },
   postButtonText: {
-    color: '#ffffff',
+    color: "#ffffff",
   },
   pressed: {
     opacity: 0.85,

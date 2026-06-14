@@ -10,28 +10,30 @@ export default function AppTabs() {
   return (
     <NativeTabs
       backgroundColor={colors.background}
-      indicatorColor={colors.backgroundElement}
-      labelStyle={{ selected: { color: colors.text } }}>
+      indicatorColor={colors.accent}
+      labelStyle={{ selected: { color: colors.accent }, color: colors.textSecondary }}>
       <NativeTabs.Trigger name="index">
-        <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>You</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
+          sf={{ default: 'person', selected: 'person.fill' }}
           src={require('@/assets/images/tabIcons/home.png')}
           renderingMode="template"
         />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="explore">
-        <NativeTabs.Trigger.Label>Messages</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>Connect</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
+          sf={{ default: 'network', selected: 'network' }}
           src={require('@/assets/images/tabIcons/explore.png')}
           renderingMode="template"
         />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="settings">
-        <NativeTabs.Trigger.Label>Settings</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>Nearby</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
-          sf={{ default: 'gearshape', selected: 'gearshape.fill' }}
+          sf={{ default: 'antenna.radiowaves.left.and.right', selected: 'antenna.radiowaves.left.and.right' }}
           src={require('@/assets/images/tabIcons/settings.png')}
           renderingMode="template"
         />

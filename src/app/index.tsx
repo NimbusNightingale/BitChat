@@ -1,28 +1,30 @@
-import { Pressable, ScrollView, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Pressable, ScrollView, View, TextInput } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useState } from "react";
 
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { styles } from '@/styles/index.styles';
+import { ThemedText } from "@/components/themed-text";
+import { ThemedView } from "@/components/themed-view";
+import { useTheme } from "@/hooks/use-theme";
+import { styles } from "@/styles/index.styles";
 
-const stories = ['Maya', 'Aarav', 'Design', 'Family', 'Live'];
+const stories = ["Maya", "Aarav", "Design", "Family", "Live"];
 
-const posts = [
+const initialPosts = [
   {
-    name: 'Maya',
-    time: '2h',
-    caption: 'BitChat feed test in monochrome. Clean, bold, and easy to scan.',
-    likes: '128',
-    comments: '24',
-    imageLabel: 'NEW',
+    name: "Maya",
+    time: "2h",
+    caption: "BitChat feed test in monochrome. Clean, bold, and easy to scan.",
+    likes: "128",
+    comments: "24",
+    imageLabel: "NEW",
   },
   {
-    name: 'Design Team',
-    time: '5h',
-    caption: 'The new chat layout feels more like a social feed now.',
-    likes: '82',
-    comments: '11',
-    imageLabel: 'UI',
+    name: "Design Team",
+    time: "5h",
+    caption: "The new chat layout feels more like a social feed now.",
+    likes: "82",
+    comments: "11",
+    imageLabel: "UI",
   },
 ];
 
@@ -102,6 +104,30 @@ function PostCard({
 }
 
 export default function HomeScreen() {
+  const theme = useTheme();
+  const [draft, setDraft] = useState("");
+  const [feedPosts, setFeedPosts] = useState(initialPosts);
+
+  const addPost = () => {
+    const trimmed = draft.trim();
+    if (!trimmed) {
+      return;
+    }
+
+    setFeedPosts([
+      {
+        name: "You",
+        time: "Just now",
+        caption: trimmed,
+        likes: "0",
+        comments: "0",
+        imageLabel: "POST",
+      },
+      ...feedPosts,
+    ]);
+    setDraft("");
+  };
+
   return (
     <ThemedView style={styles.screen}>
       <SafeAreaView style={styles.safeArea}>
@@ -122,7 +148,11 @@ export default function HomeScreen() {
           </View>
 
           <ThemedView type="backgroundElement" style={styles.storiesCard}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.storiesRow}>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.storiesRow}
+            >
               {stories.map((story) => (
                 <StoryBubble key={story} name={story} />
               ))}
@@ -130,8 +160,11 @@ export default function HomeScreen() {
           </ThemedView>
 
           <View style={styles.feed}>
-            {posts.map((post) => (
-              <PostCard key={post.name} {...post} />
+            {feedPosts.map((post) => (
+              <PostCard
+                key={`${post.name}-${post.time}-${post.caption}`}
+                {...post}
+              />
             ))}
           </View>
 
@@ -142,12 +175,24 @@ export default function HomeScreen() {
                 Share a quick update or photo
               </ThemedText>
             </View>
-            <ThemedView type="backgroundSelected" style={styles.inputMock}>
-              <ThemedText type="small" themeColor="textSecondary">
-                What’s happening?
-              </ThemedText>
-            </ThemedView>
-            <Pressable style={({ pressed }) => [styles.postButton, pressed && styles.pressed]}>
+            <TextInput
+              style={[styles.input, { color: theme.text }]}
+              placeholder="What’s happening?"
+              placeholderTextColor={theme.textSecondary}
+              value={draft}
+              onChangeText={setDraft}
+              multiline
+              numberOfLines={3}
+              returnKeyType="done"
+              onSubmitEditing={addPost}
+            />
+            <Pressable
+              onPress={addPost}
+              style={({ pressed }) => [
+                styles.postButton,
+                pressed && styles.pressed,
+              ]}
+            >
               <ThemedText type="smallBold" style={styles.postButtonText}>
                 Post
               </ThemedText>
