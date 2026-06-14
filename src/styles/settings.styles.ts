@@ -1,77 +1,95 @@
 import { StyleSheet } from 'react-native';
 
-import { MaxContentWidth, Spacing } from '@/constants/theme';
+import { BottomTabInset, MaxContentWidth, Spacing, Radii } from '@/constants/theme';
 
 export const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  },
   scrollView: {
     flex: 1,
   },
-  contentContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    paddingHorizontal: Spacing.four,
-  },
-  shell: {
+  scrollContent: {
+    flexGrow: 1,
+    paddingBottom: BottomTabInset + Spacing.five,
+    alignSelf: 'center',
     width: '100%',
     maxWidth: MaxContentWidth,
-    gap: Spacing.four,
   },
+
+  // ── Header ──
   header: {
-    borderRadius: 32,
-    padding: Spacing.four,
+    paddingHorizontal: Spacing.four,
+    paddingTop: Spacing.four,
+    paddingBottom: Spacing.three,
+    gap: Spacing.one,
+  },
+
+  // ── Mesh Status ──
+  meshStatusSection: {
+    paddingHorizontal: Spacing.four,
+    marginBottom: Spacing.four,
+  },
+
+  // ── Scanning Animation ──
+  scanSection: {
+    alignItems: 'center',
+    paddingVertical: Spacing.five,
     gap: Spacing.three,
   },
-  kicker: {
-    letterSpacing: 2,
-    textTransform: 'uppercase',
+  radarContainer: {
+    width: 200,
+    height: 200,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  title: {
-    maxWidth: 640,
+  radarRing: {
+    position: 'absolute',
+    borderWidth: 1.5,
+    borderRadius: 999,
   },
-  subtitle: {
-    maxWidth: 640,
+  radarCenter: {
+    width: 16,
+    height: 16,
+    borderRadius: 8,
   },
-  section: {
-    borderRadius: 32,
-    padding: Spacing.four,
-    gap: Spacing.four,
+  scanLabel: {
+    textAlign: 'center',
   },
-  sectionHeader: {
-    gap: Spacing.one,
-  },
-  sectionTitle: {
-    letterSpacing: -0.5,
-  },
-  toggleGrid: {
+
+  // ── Devices ──
+  devicesSection: {
+    paddingHorizontal: Spacing.four,
     gap: Spacing.two,
   },
-  toggle: {
-    borderRadius: 28,
-    padding: Spacing.four,
-    borderWidth: 1,
-    borderColor: 'rgba(0,0,0,0.08)',
-    gap: Spacing.one,
+  devicesSectionHeader: {
+    marginBottom: Spacing.one,
   },
-  toggleActive: {
-    backgroundColor: '#111111',
-    borderColor: '#111111',
+
+  // ── Quick Actions ──
+  actionsSection: {
+    paddingHorizontal: Spacing.four,
+    marginTop: Spacing.five,
+    gap: Spacing.three,
   },
-  toggleText: {
+  actionsRow: {
+    flexDirection: 'row',
+    gap: Spacing.three,
   },
-  toggleTextActive: {
-    color: '#ffffff',
+  actionButton: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: Spacing.four,
+    borderRadius: Radii.xl,
+    gap: Spacing.two,
   },
-  preview: {
-    borderRadius: 24,
-    padding: Spacing.four,
-    gap: Spacing.one,
+  actionIcon: {
+    fontSize: 28,
   },
-  previewLabel: {
-    textTransform: 'uppercase',
-    letterSpacing: 1,
-  },
+
   pressed: {
-    opacity: 0.86,
-    transform: [{ scale: 0.99 }],
+    opacity: 0.85,
+    transform: [{ scale: 0.97 }],
   },
 });
