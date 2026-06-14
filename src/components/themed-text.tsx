@@ -1,28 +1,47 @@
 import { Platform, StyleSheet, Text, type TextProps } from 'react-native';
 
-import { Fonts, ThemeColor } from '@/constants/theme';
+import { Fonts, type ThemeColor } from '@/constants/theme';
+import { Typography, type TypographyVariant } from '@/constants/typography';
 import { useTheme } from '@/hooks/use-theme';
 
 export type ThemedTextProps = TextProps & {
+  /** Legacy type variants (kept for backward compat) */
   type?: 'default' | 'title' | 'small' | 'smallBold' | 'subtitle' | 'link' | 'linkPrimary' | 'code';
+  /** New typography scale variants */
+  variant?: TypographyVariant;
   themeColor?: ThemeColor;
 };
 
-export function ThemedText({ style, type = 'default', themeColor, ...rest }: ThemedTextProps) {
+export function ThemedText({ style, type = 'default', variant, themeColor, ...rest }: ThemedTextProps) {
   const theme = useTheme();
 
+  // If a new variant is specified, use the new typography system
+  if (variant) {
+    return (
+      <Text
+        style={[
+          { color: theme[themeColor ?? 'text'] },
+          Typography[variant],
+          style,
+        ]}
+        {...rest}
+      />
+    );
+  }
+
+  // Legacy type system
   return (
     <Text
       style={[
         { color: theme[themeColor ?? 'text'] },
-        type === 'default' && styles.default,
-        type === 'title' && styles.title,
-        type === 'small' && styles.small,
-        type === 'smallBold' && styles.smallBold,
-        type === 'subtitle' && styles.subtitle,
-        type === 'link' && styles.link,
-        type === 'linkPrimary' && styles.linkPrimary,
-        type === 'code' && styles.code,
+        type === 'default' && legacyStyles.default,
+        type === 'title' && legacyStyles.title,
+        type === 'small' && legacyStyles.small,
+        type === 'smallBold' && legacyStyles.smallBold,
+        type === 'subtitle' && legacyStyles.subtitle,
+        type === 'link' && legacyStyles.link,
+        type === 'linkPrimary' && legacyStyles.linkPrimary,
+        type === 'code' && legacyStyles.code,
         style,
       ]}
       {...rest}
@@ -30,7 +49,7 @@ export function ThemedText({ style, type = 'default', themeColor, ...rest }: The
   );
 }
 
-const styles = StyleSheet.create({
+const legacyStyles = StyleSheet.create({
   small: {
     fontSize: 14,
     lineHeight: 20,

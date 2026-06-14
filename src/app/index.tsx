@@ -1,205 +1,228 @@
-import { Pressable, ScrollView, View, TextInput } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useState } from "react";
+/**
+ * You Tab — Personal Profile & Account Management
+ *
+ * Inspired by WhatsApp Profile, Discord User Profile, and Telegram Settings.
+ */
 
-import { ThemedText } from "@/components/themed-text";
-import { ThemedView } from "@/components/themed-view";
-import { useTheme } from "@/hooks/use-theme";
-import { styles } from "@/styles/index.styles";
+import { ScrollView, View, Pressable } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 
-const stories = ["Maya", "Aarav", "Design", "Family", "Live"];
+import { ThemedText } from '@/components/themed-text';
+import { ThemedView } from '@/components/themed-view';
+import { Avatar } from '@/components/ui/avatar';
+import { StatCard } from '@/components/ui/stat-card';
+import { SectionHeader } from '@/components/ui/section-header';
+import { SettingsRow } from '@/components/ui/settings-row';
+import { GlassCard } from '@/components/ui/glass-card';
+import { useTheme } from '@/hooks/use-theme';
+import { useThemeMode } from '@/context/theme-mode';
+import { staggerDelay } from '@/constants/animations';
+import { Spacing } from '@/constants/theme';
+import { styles } from '@/styles/index.styles';
 
-const initialPosts = [
-  {
-    name: "Maya",
-    time: "2h",
-    caption: "BitChat feed test in monochrome. Clean, bold, and easy to scan.",
-    likes: "128",
-    comments: "24",
-    imageLabel: "NEW",
+// ── Mock User Data ──
+const currentUser = {
+  displayName: 'Akshat',
+  username: 'akshat',
+  bio: 'Building the future of decentralized communication ✨',
+  userId: 'BC-7X9K-M2PQ',
+  stats: {
+    connections: 47,
+    messagesSent: 1283,
+    nearbyFriends: 5,
+    internetFriends: 42,
   },
-  {
-    name: "Design Team",
-    time: "5h",
-    caption: "The new chat layout feels more like a social feed now.",
-    likes: "82",
-    comments: "11",
-    imageLabel: "UI",
-  },
+};
+
+const stats = [
+  { icon: '🔗', value: currentUser.stats.connections, label: 'Connections', color: '#818CF8' },
+  { icon: '💬', value: currentUser.stats.messagesSent, label: 'Messages', color: '#34D399' },
+  { icon: '📡', value: currentUser.stats.nearbyFriends, label: 'Nearby', color: '#22D3EE' },
+  { icon: '🌐', value: currentUser.stats.internetFriends, label: 'Internet', color: '#F59E0B' },
 ];
 
-function StoryBubble({ name }: { name: string }) {
-  return (
-    <View style={styles.storyItem}>
-      <View style={styles.storyRing}>
-        <View style={styles.storyAvatar}>
-          <ThemedText type="smallBold" style={styles.storyInitial}>
-            {name.slice(0, 1)}
-          </ThemedText>
-        </View>
-      </View>
-      <ThemedText type="small" themeColor="textSecondary" numberOfLines={1}>
-        {name}
-      </ThemedText>
-    </View>
-  );
-}
-
-function PostCard({
-  name,
-  time,
-  caption,
-  likes,
-  comments,
-  imageLabel,
-}: {
-  name: string;
-  time: string;
-  caption: string;
-  likes: string;
-  comments: string;
-  imageLabel: string;
-}) {
-  return (
-    <ThemedView type="backgroundElement" style={styles.postCard}>
-      <View style={styles.postHeader}>
-        <View style={styles.postUser}>
-          <View style={styles.postAvatar}>
-            <ThemedText type="smallBold">{name.slice(0, 1)}</ThemedText>
-          </View>
-          <View>
-            <ThemedText type="smallBold">{name}</ThemedText>
-            <ThemedText type="small" themeColor="textSecondary">
-              {time}
-            </ThemedText>
-          </View>
-        </View>
-        <ThemedText type="smallBold" themeColor="textSecondary">
-          ...
-        </ThemedText>
-      </View>
-
-      <ThemedView type="backgroundSelected" style={styles.postImage}>
-        <ThemedText type="subtitle" style={styles.postImageText}>
-          {imageLabel}
-        </ThemedText>
-      </ThemedView>
-
-      <View style={styles.postActions}>
-        <View style={styles.actionRow}>
-          <ThemedText type="smallBold">♡</ThemedText>
-          <ThemedText type="smallBold">💬</ThemedText>
-          <ThemedText type="smallBold">↗</ThemedText>
-        </View>
-        <ThemedText type="small" themeColor="textSecondary">
-          {likes} likes · {comments} comments
-        </ThemedText>
-      </View>
-
-      <ThemedText type="default">
-        <ThemedText type="smallBold">{name}</ThemedText> {caption}
-      </ThemedText>
-    </ThemedView>
-  );
-}
-
-export default function HomeScreen() {
+export default function YouScreen() {
+  const insets = useSafeAreaInsets();
   const theme = useTheme();
-  const [draft, setDraft] = useState("");
-  const [feedPosts, setFeedPosts] = useState(initialPosts);
-
-  const addPost = () => {
-    const trimmed = draft.trim();
-    if (!trimmed) {
-      return;
-    }
-
-    setFeedPosts([
-      {
-        name: "You",
-        time: "Just now",
-        caption: trimmed,
-        likes: "0",
-        comments: "0",
-        imageLabel: "POST",
-      },
-      ...feedPosts,
-    ]);
-    setDraft("");
-  };
+  const { mode, setMode } = useThemeMode();
 
   return (
     <ThemedView style={styles.screen}>
-      <SafeAreaView style={styles.safeArea}>
-        <ScrollView
-          contentContainerStyle={styles.scrollContent}
-          decelerationRate="fast"
-          bounces
-          scrollEventThrottle={16}
-          keyboardDismissMode="on-drag"
-          contentInsetAdjustmentBehavior="automatic"
-          showsVerticalScrollIndicator={false}
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingTop: insets.top },
+        ]}
+        showsVerticalScrollIndicator={false}
+        bounces
+      >
+        {/* ── Profile Header ── */}
+        <Animated.View
+          entering={FadeInDown.duration(500).springify().damping(18)}
+          style={styles.profileHeader}
         >
-          <View style={styles.topBar}>
-            <ThemedText type="subtitle">BitChat</ThemedText>
-            <ThemedText type="smallBold" themeColor="textSecondary">
-              Feed
+          <View style={[styles.avatarRing, { borderColor: theme.accent }]}>
+            <Avatar name={currentUser.displayName} size="xl" showStatus isOnline />
+          </View>
+
+          <View style={styles.nameGroup}>
+            <ThemedText variant="h1" style={styles.displayName}>
+              {currentUser.displayName}
+            </ThemedText>
+            <ThemedText variant="label" themeColor="textSecondary" style={styles.username}>
+              @{currentUser.username}
             </ThemedText>
           </View>
 
-          <ThemedView type="backgroundElement" style={styles.storiesCard}>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.storiesRow}
-            >
-              {stories.map((story) => (
-                <StoryBubble key={story} name={story} />
-              ))}
-            </ScrollView>
-          </ThemedView>
+          <ThemedText variant="bodySmall" themeColor="textSecondary" style={styles.bio}>
+            {currentUser.bio}
+          </ThemedText>
 
-          <View style={styles.feed}>
-            {feedPosts.map((post) => (
-              <PostCard
-                key={`${post.name}-${post.time}-${post.caption}`}
-                {...post}
+          <Pressable
+            style={({ pressed }) => [
+              styles.userIdContainer,
+              { backgroundColor: theme.backgroundElement },
+              pressed && styles.pressed,
+            ]}
+          >
+            <ThemedText variant="mono" themeColor="textTertiary" style={styles.userId}>
+              {currentUser.userId}
+            </ThemedText>
+            <ThemedText style={{ fontSize: 12 }}>📋</ThemedText>
+          </Pressable>
+        </Animated.View>
+
+        {/* ── Statistics ── */}
+        <Animated.View
+          entering={FadeInDown.delay(staggerDelay(0)).duration(500).springify().damping(18)}
+          style={styles.statsSection}
+        >
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.statsRow}
+          >
+            {stats.map((stat) => (
+              <StatCard
+                key={stat.label}
+                icon={stat.icon}
+                value={stat.value}
+                label={stat.label}
+                accentColor={stat.color}
               />
             ))}
-          </View>
+          </ScrollView>
+        </Animated.View>
 
-          <ThemedView type="backgroundElement" style={styles.composer}>
-            <View style={styles.composerTop}>
-              <ThemedText type="smallBold">Create post</ThemedText>
-              <ThemedText type="small" themeColor="textSecondary">
-                Share a quick update or photo
-              </ThemedText>
-            </View>
-            <TextInput
-              style={[styles.input, { color: theme.text }]}
-              placeholder="What’s happening?"
-              placeholderTextColor={theme.textSecondary}
-              value={draft}
-              onChangeText={setDraft}
-              multiline
-              numberOfLines={3}
-              returnKeyType="done"
-              onSubmitEditing={addPost}
+        {/* ── Personalization ── */}
+        <Animated.View
+          entering={FadeInDown.delay(staggerDelay(1)).duration(500).springify().damping(18)}
+          style={styles.section}
+        >
+          <SectionHeader title="Personalization" />
+          <GlassCard intensity="subtle" radius="xl">
+            <SettingsRow
+              icon="🌙"
+              label="Dark Mode"
+              toggle
+              toggleValue={mode === 'dark'}
+              onToggleChange={(val) => setMode(val ? 'dark' : 'light')}
             />
-            <Pressable
-              onPress={addPost}
-              style={({ pressed }) => [
-                styles.postButton,
-                pressed && styles.pressed,
-              ]}
-            >
-              <ThemedText type="smallBold" style={styles.postButtonText}>
-                Post
-              </ThemedText>
-            </Pressable>
-          </ThemedView>
-        </ScrollView>
-      </SafeAreaView>
+            <SettingsRow
+              icon="🎨"
+              label="Theme"
+              value="Indigo"
+              showChevron
+              onPress={() => {}}
+            />
+            <SettingsRow
+              icon="🔔"
+              label="Notifications"
+              showChevron
+              onPress={() => {}}
+              showDivider={false}
+            />
+          </GlassCard>
+        </Animated.View>
+
+        {/* ── Account ── */}
+        <Animated.View
+          entering={FadeInDown.delay(staggerDelay(2)).duration(500).springify().damping(18)}
+          style={styles.section}
+        >
+          <SectionHeader title="Account" />
+          <GlassCard intensity="subtle" radius="xl">
+            <SettingsRow
+              icon="✏️"
+              label="Edit Profile"
+              subtitle="Change name, bio, and photo"
+              showChevron
+              onPress={() => {}}
+            />
+            <SettingsRow
+              icon="🔒"
+              label="Privacy & Security"
+              showChevron
+              onPress={() => {}}
+            />
+            <SettingsRow
+              icon="💾"
+              label="Storage & Data"
+              value="2.4 GB"
+              showChevron
+              onPress={() => {}}
+            />
+            <SettingsRow
+              icon="⚙️"
+              label="App Preferences"
+              showChevron
+              onPress={() => {}}
+              showDivider={false}
+            />
+          </GlassCard>
+        </Animated.View>
+
+        {/* ── About ── */}
+        <Animated.View
+          entering={FadeInDown.delay(staggerDelay(3)).duration(500).springify().damping(18)}
+          style={styles.section}
+        >
+          <SectionHeader title="About" />
+          <GlassCard intensity="subtle" radius="xl">
+            <SettingsRow
+              icon="ℹ️"
+              label="App Version"
+              value="1.0.0"
+              accentColor={theme.textTertiary}
+            />
+            <SettingsRow
+              icon="📄"
+              label="Terms of Service"
+              showChevron
+              onPress={() => {}}
+            />
+            <SettingsRow
+              icon="🛡️"
+              label="Privacy Policy"
+              showChevron
+              onPress={() => {}}
+              showDivider={false}
+            />
+          </GlassCard>
+        </Animated.View>
+
+        {/* ── Footer ── */}
+        <View style={styles.footer}>
+          <ThemedText variant="caption" themeColor="textTertiary">
+            BitChat · Decentralized Communication
+          </ThemedText>
+          <ThemedText variant="micro" themeColor="textTertiary">
+            Built with Expo SDK 56
+          </ThemedText>
+        </View>
+      </ScrollView>
     </ThemedView>
   );
 }

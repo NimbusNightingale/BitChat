@@ -11,7 +11,7 @@ export default function AppTabs() {
     <NativeTabs
       backgroundColor={colors.background}
       indicatorColor={colors.accent}
-      labelStyle={{ selected: { color: colors.accent }, color: colors.textSecondary }}>
+      labelStyle={{ selected: { color: colors.accent }, color: colors.tabBarInactive }}>
       <NativeTabs.Trigger name="index">
         <NativeTabs.Trigger.Label>You</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
@@ -24,7 +24,7 @@ export default function AppTabs() {
       <NativeTabs.Trigger name="explore">
         <NativeTabs.Trigger.Label>Connect</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
-          sf={{ default: 'network', selected: 'network' }}
+          sf={{ default: 'bubble.left.and.bubble.right', selected: 'bubble.left.and.bubble.right.fill' }}
           src={require('@/assets/images/tabIcons/explore.png')}
           renderingMode="template"
         />

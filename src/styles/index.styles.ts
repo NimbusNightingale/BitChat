@@ -1,131 +1,97 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
-import { BottomTabInset, MaxContentWidth, Spacing } from "@/constants/theme";
+import { BottomTabInset, MaxContentWidth, Spacing, Radii } from '@/constants/theme';
 
 export const styles = StyleSheet.create({
   screen: {
     flex: 1,
   },
-  safeArea: {
+  scrollView: {
     flex: 1,
   },
   scrollContent: {
     flexGrow: 1,
-    paddingHorizontal: Spacing.four,
     paddingBottom: BottomTabInset + Spacing.five,
-    alignSelf: "center",
-    width: "100%",
+    alignSelf: 'center',
+    width: '100%',
     maxWidth: MaxContentWidth,
-    gap: Spacing.four,
   },
-  topBar: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+
+  // ── Profile Header ──
+  profileHeader: {
+    alignItems: 'center',
     paddingTop: Spacing.five,
-  },
-  storiesCard: {
-    borderRadius: 28,
-    paddingVertical: Spacing.three,
-  },
-  storiesRow: {
-    gap: Spacing.three,
-    paddingHorizontal: Spacing.two,
-  },
-  storyItem: {
-    alignItems: "center",
-    gap: Spacing.one,
-  },
-  storyRing: {
-    width: 68,
-    height: 68,
-    borderRadius: 34,
-    borderWidth: 2,
-    borderColor: "#111111",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  storyAvatar: {
-    width: 58,
-    height: 58,
-    borderRadius: 29,
-    backgroundColor: "#111111",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  storyInitial: {
-    color: "#ffffff",
-  },
-  feed: {
-    gap: Spacing.four,
-  },
-  postCard: {
-    borderRadius: 32,
-    padding: Spacing.four,
-    gap: Spacing.three,
-  },
-  postHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  postUser: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-  },
-  postAvatar: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: "#111111",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  postImage: {
-    borderRadius: 24,
-    minHeight: 320,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  postImageText: {
-    fontSize: 44,
-    letterSpacing: 4,
-  },
-  postActions: {
-    gap: Spacing.one,
-  },
-  actionRow: {
-    flexDirection: "row",
-    gap: Spacing.two,
-  },
-  composer: {
-    borderRadius: 32,
-    padding: Spacing.four,
-    gap: Spacing.three,
-  },
-  composerTop: {
-    gap: Spacing.one,
-  },
-  input: {
-    borderRadius: 24,
-    borderWidth: 1,
-    borderColor: "rgba(0,0,0,0.08)",
+    paddingBottom: Spacing.five,
     paddingHorizontal: Spacing.four,
-    paddingVertical: Spacing.three,
-    minHeight: 64,
-    textAlignVertical: "top",
-    width: "100%",
+    gap: Spacing.three,
   },
-  postButton: {
+  avatarRing: {
+    padding: 4,
     borderRadius: 999,
+    borderWidth: 2.5,
+  },
+  nameGroup: {
+    alignItems: 'center',
+    gap: Spacing.half,
+  },
+  displayName: {
+    textAlign: 'center',
+  },
+  username: {
+    textAlign: 'center',
+  },
+  bio: {
+    textAlign: 'center',
+    maxWidth: 280,
+    marginTop: Spacing.one,
+  },
+  userIdContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.two,
+    marginTop: Spacing.one,
+    paddingHorizontal: Spacing.three,
+    paddingVertical: Spacing.one + 2,
+    borderRadius: Radii.full,
+  },
+  userId: {
+    letterSpacing: 0.5,
+  },
+
+  // ── Stats ──
+  statsSection: {
+    paddingLeft: Spacing.four,
+    marginTop: Spacing.one,
+  },
+  statsRow: {
+    gap: Spacing.three,
+    paddingRight: Spacing.four,
+  },
+
+  // ── Sections ──
+  section: {
+    marginTop: Spacing.five,
+    paddingHorizontal: Spacing.four,
+    gap: Spacing.three,
+  },
+  sectionCard: {
+    borderRadius: Radii.xl,
+    overflow: 'hidden',
+  },
+  sectionCardInner: {
     paddingHorizontal: Spacing.four,
     paddingVertical: Spacing.two,
-    backgroundColor: "#111111",
-    alignSelf: "flex-start",
   },
-  postButtonText: {
-    color: "#ffffff",
+
+  // ── Footer ──
+  footer: {
+    alignItems: 'center',
+    paddingVertical: Spacing.six,
+    gap: Spacing.two,
+  },
+  footerLogo: {
+    fontSize: 28,
+    opacity: 0.5,
   },
   pressed: {
     opacity: 0.85,
