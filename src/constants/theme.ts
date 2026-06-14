@@ -17,10 +17,10 @@ export const Colors = {
   },
   dark: {
     text: '#ffffff',
-    background: '#000000',
-    backgroundElement: '#212225',
-    backgroundSelected: '#2E3135',
-    textSecondary: '#B0B4BA',
+    background: '#0b0b0b',
+    backgroundElement: '#171717',
+    backgroundSelected: '#262626',
+    textSecondary: '#d0d0d0',
   },
 } as const;
 
