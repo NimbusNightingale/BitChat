@@ -1,6 +1,10 @@
-# Welcome to your Expo app 👋
+# BitChat
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+BitChat is an [Expo](https://expo.dev) app built with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app) and configured for Android, iOS, and web development.
+
+## What this app is for
+
+BitChat is the project workspace for the BitChat app. Use this repo to run the app locally, build on Android or web from any machine, and use iOS development on macOS.
 
 ## Get started
 
@@ -16,7 +20,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npx expo start
    ```
 
-3. Open it on your platform
+3. Open BitChat on your platform
 
    - On Windows or Linux, use an Android emulator, a physical Android device, or the web build.
    - On macOS, you can also use the iOS simulator or a development build.
@@ -30,7 +34,7 @@ In the Expo CLI output, you'll find options to open the app in:
 
 Note: `npm run ios` is macOS-only because it requires Xcode and the iOS Simulator. Windows users should use `npm run android` or `npm run web`.
 
-You can start developing by editing the files inside the `src` directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+You can start developing by editing the files inside the `src` directory. BitChat uses [file-based routing](https://docs.expo.dev/router/introduction).
 
 ## Get a fresh project
 
